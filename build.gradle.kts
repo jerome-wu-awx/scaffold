@@ -22,6 +22,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework:spring-web:5.3.8")
 	implementation ("org.springframework.boot:spring-boot-starter-web:2.5.1")
+	implementation ("commons-httpclient:commons-httpclient:3.1")
+	implementation ("com.squareup.okhttp3:okhttp:3.14.4")
 }
 
 tasks.withType<KotlinCompile> {
