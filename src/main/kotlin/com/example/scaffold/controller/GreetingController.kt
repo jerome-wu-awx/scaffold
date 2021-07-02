@@ -14,10 +14,10 @@ class GreetingController(
     @Value("\${name}")
     private val name : String,
 
-    @Value("\${host}")
+    @Value("\${target.host}")
     private val host : String,
 
-    @Value("\${port}")
+    @Value("\${target.port}")
     private val port : String
 ) {
     @GetMapping("/greeting")

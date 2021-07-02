@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: scaffold-a
+  labels:
+    app: scaffold-a
+    service: scaffold-a
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: scaffold-a
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaffold-a
+  labels:
+    app: scaffold-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scaffold-a
+  template:
+    metadata:
+      labels:
+        app: scaffold-a
+    spec:
+      containers:
+        - name: scaffold
+          image: localhost:5000/scaffold:A
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scaffold-b
+  labels:
+    app: scaffold-b
+    service: scaffold-b
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: scaffold-b
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaffold-b
+  labels:
+    app: scaffold-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scaffold-b
+  template:
+    metadata:
+      labels:
+        app: scaffold-b
+    spec:
+      containers:
+        - name: scaffold
+          image: localhost:5000/scaffold:B
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scaffold-c
+  labels:
+    app: scaffold-c
+    service: scaffold-c
+spec:
+  ports:
+    - port: 8080
+      name: http
+  selector:
+    app: scaffold-c
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaffold-c
+  labels:
+    app: scaffold-c
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scaffold-c
+  template:
+    metadata:
+      labels:
+        app: scaffold-c
+    spec:
+      containers:
+        - name: scaffold
+          image: localhost:5000/scaffold:C
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
