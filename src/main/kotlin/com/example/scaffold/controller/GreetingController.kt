@@ -17,6 +17,6 @@ class GreetingController(
 ) {
     @GetMapping("/greeting")
     fun getGreeting() : String{
-        return "hello, Im" + name;
+        return "Hello, Im " + name + ".";
     }
 }
