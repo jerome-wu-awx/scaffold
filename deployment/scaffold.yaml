@@ -30,10 +30,15 @@ spec:
     spec:
       containers:
         - name: scaffold
-          image: localhost:5000/scaffold:A
+          image: localhost:5000/scaffold:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: NAME
+              value: A
+            - name: TARGET_HOST
+              value: scaffold-b
 
 ---
 apiVersion: v1
@@ -68,10 +73,15 @@ spec:
     spec:
       containers:
         - name: scaffold
-          image: localhost:5000/scaffold:B
+          image: localhost:5000/scaffold:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: NAME
+              value: B
+            - name: TARGET_HOST
+              value: scaffold-c
 ---
 apiVersion: v1
 kind: Service
@@ -105,8 +115,11 @@ spec:
     spec:
       containers:
         - name: scaffold
-          image: localhost:5000/scaffold:C
+          image: localhost:5000/scaffold:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: NAME
+              value: C
 ---
