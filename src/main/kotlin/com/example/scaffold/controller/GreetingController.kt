@@ -6,7 +6,13 @@ import okhttp3.Request
 import okhttp3.ResponseBody
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.io.File
+import java.io.FileOutputStream
+import java.time.LocalDate
+import java.time.LocalDateTime
+import javax.websocket.server.PathParam
 
 
 @RestController
@@ -18,10 +24,14 @@ class GreetingController(
     private val host : String,
 
     @Value("\${target.port}")
-    private val port : String
+    private val port : String,
+
+    @Value("\${file}")
+    private val file : String
+
 ) {
     @GetMapping("/greeting")
-    fun getGreeting() : String{
+    fun getGreeting() : String {
 
         if (host == "") {
             return "Hello, Im " + name + ".";
@@ -37,5 +47,25 @@ class GreetingController(
             println(bodyString)
         }
         return "Hello, Im " + name + ". " + bodyString;
+    }
+
+    @GetMapping("/date")
+    fun getDate() : String {
+        return LocalDateTime.now().toString()
+    }
+
+    @GetMapping("/write")
+    fun writeFile(@RequestParam(name = "data") data : String) : String {
+        println("write data(${data}) into file ${file}")
+        val file = File(file)
+        file.writeText(data)
+        return data
+    }
+
+    @GetMapping("/read")
+    fun readFile() : String {
+        println("read data from file ${file}")
+        val file = File(file)
+        return file.readText()
     }
 }
